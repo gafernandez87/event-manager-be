@@ -1,6 +1,10 @@
 // app.js
 const express = require('express');
+const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
+
+const { json, urlencoded } = require('body-parser');
+
 
 const app = express();
 
