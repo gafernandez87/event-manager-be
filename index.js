@@ -11,7 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 
 // middlewares
-const authenticated = require('./middlewares/authMiddleware'); // Importa el middleware de autenticación
+const authenticated = require('./middlewares/authMiddleware');
 
 app.use(json());
 app.use(cors());
@@ -21,7 +21,7 @@ app.use(
     })
 );
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.get('/', (req, res) => {
   res.send('PONG');

@@ -1,14 +1,46 @@
 const express = require('express');
 const router = express.Router();
+const supabase = require('../config/db');
 
-const events = [
-    { id: 1, title: 'Fiesta de 15 Giuli', eventDate: '2023-12-15' },
-    { id: 2, title: 'Casamiento Carolina', eventDate: '2023-10-10' },
-    { id: 3, title: 'Seminario Anual 2024', eventDate: '2024-06-01' },
-];
+router.get('/events', async (req, res) => {
 
-router.get('/events', (req, res) => {
-    res.json(events);
+    try {
+        const { data, error } = await supabase.from('events').select('*');
+
+        if (error) throw error;
+    
+        res.json(data);
+      } catch (error) {
+        console.error('Error al obtener los usuarios:', error);
+        res.status(500).json({ message: 'Error al obtener los usuarios' });
+    }
 });
+
+router.get('/events/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { data, error } = await supabase.from('events').select('*').eq('id', id).maybeSingle();
+        if (error) throw error;
+
+        res.json(data);
+    } catch (error) {
+        console.error('Error al obtener el evento:', error);
+        res.status(500).json({ message: 'Error al obtener el evento' });
+    }
+}); 
+
+router.get('/events/:id/guests', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { data, error } = await supabase.from('guests').select('*').eq('event_id', id);
+        if (error) throw error;
+
+        res.json(data);
+    } catch (error) {
+        console.error('Error al obtener el invitados:', error);
+        res.status(500).json({ message: 'Error al obtener invitados' });
+    }
+}); 
+
 
 module.exports = router;
