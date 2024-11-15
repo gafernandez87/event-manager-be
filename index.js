@@ -3,9 +3,18 @@ const express = require('express');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
-const port = 3000;
 
-app.use(express.json());
+// middlewares
+app.use(json());
+app.use(cors());
+app.use(
+    urlencoded({
+        extended: true,
+    })
+);
+
+const port = process.env.PORT || 3000;
+
 app.get('/', (req, res) => {
   res.send('PONG');
 });
