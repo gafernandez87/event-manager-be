@@ -1,7 +1,7 @@
 // middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 
-const authenticate = (req, res, next) => {
+const authenticated = (req, res, next) => {
   const token = req.headers['authorization'];
   if (!token) {
     return res.status(401).json({ message: 'Acceso denegado' });
@@ -17,4 +17,4 @@ const authenticate = (req, res, next) => {
   
 };
 
-module.exports = { authenticate };
+module.exports = authenticated;
