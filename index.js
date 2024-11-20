@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
   res.send('PONG');
 });
 app.use('/api/auth', authRoutes);
-app.use('/api', eventRoutes);
+app.use('/api', authenticated, eventRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
